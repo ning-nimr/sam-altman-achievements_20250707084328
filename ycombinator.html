@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sam Altman - Y Combinator</title>
+    <style>
+        :root {
+            --primary-color: #ff6b00;
+            --secondary-color: #333;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --gray-color: #6c757d;
+            --border-radius: 5px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: var(--box-shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 5px 10px;
+            border-radius: var(--border-radius);
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-color);
+            background-color: rgba(255, 107, 0, 0.1);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+        }
+        
+        main {
+            margin-top: 80px;
+            padding: 40px 0;
+        }
+        
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .hero-content {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .hero-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .hero-image img:hover {
+            transform: scale(1.02);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin: 30px 0 20px;
+            color: var(--secondary-color);
+        }
+        
+        p {
+            margin-bottom: 20px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+        
+        .stat-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            min-width: 200px;
+            margin: 10px;
+            transition: var(--transition);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: var(--gray-color);
+        }
+        
+        .companies {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .company {
+            background-color: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            min-width: 150px;
+            transition: var(--transition);
+        }
+        
+        .company:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chart-container {
+            margin: 40px 0;
+            height: 300px;
+            position: relative;
+        }
+        
+        .bar {
+            position: absolute;
+            bottom: 0;
+            width: 60px;
+            background-color: var(--primary-color);
+            border-radius: 5px 5px 0 0;
+            transition: height 1s ease-in-out;
+        }
+        
+        .bar-label {
+            position: absolute;
+            bottom: -30px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .footer-links li {
+            margin: 0 15px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: var(--box-shadow);
+                transform: translateY(-150%);
+                transition: var(--transition);
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+            }
+            
+            .nav-links li {
+                margin: 10px 0;
+            }
+            
+            .hero {
+                flex-direction: column;
+            }
+            
+            .hero-content, .hero-image {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Sam Altman</div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="biography.html">Biography</a></li>
+                    <li><a href="openai.html">OpenAI</a></li>
+                    <li><a href="ycombinator.html" class="active">Y Combinator</a></li>
+                    <li><a href="ventures.html">Ventures</a></li>
+                    <li><a href="vision.html">Vision</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <button class="hamburger">☰</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Sam Altman at Y Combinator</h1>
+                <p>Sam Altman's leadership at Y Combinator from 2014 to 2019 revolutionized the startup accelerator landscape and set new standards for how accelerators support early-stage companies.</p>
+            </div>
+            <div class="hero-image">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Y_Combinator_logo.svg/1200px-Y_Combinator_logo.svg.png" alt="Y Combinator Logo">
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Role and Impact</h2>
+            <p>Sam Altman served as the president of Y Combinator from 2014 to 2019, during which time he significantly expanded the accelerator's scope and influence in the startup ecosystem.</p>
+            <p>Under his leadership, Altman launched innovative programs that transformed YC's approach:</p>
+            <ul>
+                <li>YC Continuity - A fund focused on growth-stage investments</li>
+                <li>YC Research - A nonprofit research lab exploring breakthrough technologies</li>
+            </ul>
+            <p>Altman emphasized a founder-centric approach, believing that passionate, determined founders were more important than just ideas. He cultivated a strong network of alumni and mentors, creating a powerful ecosystem for startups to thrive.</p>
+            <p>His philosophy of rapid iteration and launching MVPs quickly became core principles for YC startups, leading to faster growth and more successful outcomes.</p>
+        </section>
+
+        <section class="stats">
+            <div class="stat-card">
+                <div class="stat-number">1,900+</div>
+                <div class="stat-label">Companies Supported</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">$80B+</div>
+                <div class="stat-label">Combined Valuation</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Years as President</div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Notable Success Stories</h2>
+            <p>Under Sam Altman's leadership, Y Combinator helped approximately 1,900 companies, including several that have become household names:</p>
+            <div class="companies">
+                <div class="company">Airbnb</div>
+                <div class="company">Instacart</div>
+                <div class="company">DoorDash</div>
+                <div class="company">Reddit</div>
+                <div class="company">Twitch</div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Influence on the Startup Ecosystem</h2>
+            <p>Altman's strategies at Y Combinator set a new standard for how accelerators can support startups. His principles continue to influence the broader startup world:</p>
+            <ul>
+                <li>Founder-centric support model</li>
+                <li>Strong alumni network and mentorship</li>
+                <li>Adaptability to changing market conditions</li>
+                <li>Focus on rapid iteration and MVP development</li>
+            </ul>
+            <p>The YC-OpenAI ecosystem that Altman helped create has become a force multiplier for innovation across the tech industry.</p>
+        </section>
+
+        <section class="section">
+            <h2>YC Growth Under Altman's Leadership</h2>
+            <div class="chart-container">
+                <div class="bar" id="bar1" style="left: 10%; height: 0%;">
+                    <div class="bar-value">500</div>
+                    <div class="bar-label">2014</div>
+                </div>
+                <div class="bar" id="bar2" style="left: 30%; height: 0%;">
+                    <div class="bar-value">900</div>
+                    <div class="bar-label">2016</div>
+                </div>
+                <div class="bar" id="bar3" style="left: 50%; height: 0%;">
+                    <div class="bar-value">1400</div>
+                    <div class="bar-label">2018</div>
+                </div>
+                <div class="bar" id="bar4" style="left: 70%; height: 0%;">
+                    <div class="bar-value">1900</div>
+                    <div class="bar-label">2019</div>
+                </div>
+            </div>
+            <p class="text-center">Number of companies funded by Y Combinator</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2023 Sam Altman Profile</p>
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="biography.html">Biography</a></li>
+                <li><a href="openai.html">OpenAI</a></li>
+                <li><a href="ycombinator.html">Y Combinator</a></li>
+                <li><a href="ventures.html">Ventures</a></li>
+                <li><a href="vision.html">Vision</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Animate chart on scroll
+        function animateChart() {
+            const bars = document.querySelectorAll('.bar');
+            const heights = [60, 108, 168, 228]; // Heights in percentage based on values
+            
+            bars.forEach((bar, index) => {
+                setTimeout(() => {
+                    bar.style.height = heights[index] + 'px';
+                }, 300 * index);
+            });
+        }
+        
+        // Check if element is in viewport
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+        
+        // Animate chart when scrolled into view
+        document.addEventListener('scroll', function() {
+            const chartContainer = document.querySelector('.chart-container');
+            if (isInViewport(chartContainer)) {
+                animateChart();
+                // Remove event listener after animation
+                this.removeEventListener('scroll', arguments.callee);
+            }
+        });
+        
+        // Animate chart if already in viewport on load
+        window.addEventListener('load', function() {
+            const chartContainer = document.querySelector('.chart-container');
+            if (isInViewport(chartContainer)) {
+                animateChart();
+            }
+        });
+    </script>
+</body>
+</html>
